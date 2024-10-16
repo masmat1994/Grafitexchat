@@ -1,57 +1,138 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modulo Raccolta Dati</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    form {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+      width: 100%;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    label {
+      font-weight: bold;
+      margin-bottom: 5px;
+      display: block;
+      color: #555;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+
+    input[type="submit"] {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #218838;
+    }
+
+    @media (max-width: 600px) {
+      form {
+        padding: 15px;
+      }
+
+      input, select {
+        font-size: 14px;
+      }
+    }
+
+    /* Nascondere i form privato/azienda all'inizio */
+    #form-privato, #form-azienda {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
 <form id="form-dati-anagrafici">
-  <label for="tipo-cliente">Seleziona il tipo di cliente:</label>
+  <h2>Modulo Dati Cliente</h2>
+  <label for="tipo-cliente">Tipo di Cliente:</label>
   <select id="tipo-cliente" name="tipo-cliente" onchange="toggleFormFields()">
-    <option value="">--Seleziona--</option>
+    <option value="">-- Seleziona --</option>
     <option value="privato">Privato</option>
     <option value="azienda">Azienda</option>
   </select>
 
   <!-- Dati per Privato -->
-  <div id="form-privato" style="display:none;">
+  <div id="form-privato">
     <label for="nome">Nome:</label>
-    <input type="text" id="nome" name="nome"><br>
+    <input type="text" id="nome" name="nome">
 
     <label for="cognome">Cognome:</label>
-    <input type="text" id="cognome" name="cognome"><br>
+    <input type="text" id="cognome" name="cognome">
 
     <label for="data-nascita">Data di Nascita:</label>
-    <input type="date" id="data-nascita" name="data-nascita"><br>
+    <input type="date" id="data-nascita" name="data-nascita">
 
     <label for="codice-fiscale">Codice Fiscale:</label>
-    <input type="text" id="codice-fiscale" name="codice-fiscale"><br>
+    <input type="text" id="codice-fiscale" name="codice-fiscale">
 
     <label for="indirizzo">Indirizzo:</label>
-    <input type="text" id="indirizzo" name="indirizzo"><br>
+    <input type="text" id="indirizzo" name="indirizzo">
 
     <label for="telefono">Numero di Telefono:</label>
-    <input type="tel" id="telefono" name="telefono"><br>
+    <input type="tel" id="telefono" name="telefono">
 
     <label for="email">Email:</label>
-    <input type="email" id="email" name="email"><br>
+    <input type="email" id="email" name="email">
   </div>
 
   <!-- Dati per Azienda -->
-  <div id="form-azienda" style="display:none;">
+  <div id="form-azienda">
     <label for="ragione-sociale">Ragione Sociale:</label>
-    <input type="text" id="ragione-sociale" name="ragione-sociale"><br>
+    <input type="text" id="ragione-sociale" name="ragione-sociale">
 
     <label for="partita-iva">Partita IVA:</label>
-    <input type="text" id="partita-iva" name="partita-iva"><br>
+    <input type="text" id="partita-iva" name="partita-iva">
 
     <label for="indirizzo-azienda">Indirizzo Aziendale:</label>
-    <input type="text" id="indirizzo-azienda" name="indirizzo-azienda"><br>
+    <input type="text" id="indirizzo-azienda" name="indirizzo-azienda">
 
     <label for="telefono-azienda">Numero di Telefono Aziendale:</label>
-    <input type="tel" id="telefono-azienda" name="telefono-azienda"><br>
+    <input type="tel" id="telefono-azienda" name="telefono-azienda">
 
     <label for="email-azienda">Email Aziendale:</label>
-    <input type="email" id="email-azienda" name="email-azienda"><br>
+    <input type="email" id="email-azienda" name="email-azienda">
 
     <label for="nome-referente">Nome Referente:</label>
-    <input type="text" id="nome-referente" name="nome-referente"><br>
+    <input type="text" id="nome-referente" name="nome-referente">
 
     <label for="cognome-referente">Cognome Referente:</label>
-    <input type="text" id="cognome-referente" name="cognome-referente"><br>
+    <input type="text" id="cognome-referente" name="cognome-referente">
   </div>
 
   <input type="submit" value="Invia">
@@ -62,7 +143,7 @@
     const tipoCliente = document.getElementById('tipo-cliente').value;
     const formPrivato = document.getElementById('form-privato');
     const formAzienda = document.getElementById('form-azienda');
-    
+
     if (tipoCliente === 'privato') {
       formPrivato.style.display = 'block';
       formAzienda.style.display = 'none';
@@ -74,4 +155,9 @@
       formAzienda.style.display = 'none';
     }
   }
+
+  // Per gestire l'invio dati all'API, puoi usare lo stesso codice JavaScript del mio esempio precedente.
 </script>
+
+</body>
+</html>
