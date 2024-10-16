@@ -1,17 +1,77 @@
-<!DOCTYPE html>
-<html lang="it">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chatbot Raccolta Dati</title>
-    <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
-</head>
-<body>
-    <df-messenger
-        intent="WELCOME"
-        chat-title="Raccolta Dati Cliente"
-        agent-id="supportgrafitex-wevi"
-        language-code="it"
-    ></df-messenger>
-</body>
-</html>
+<form id="form-dati-anagrafici">
+  <label for="tipo-cliente">Seleziona il tipo di cliente:</label>
+  <select id="tipo-cliente" name="tipo-cliente" onchange="toggleFormFields()">
+    <option value="">--Seleziona--</option>
+    <option value="privato">Privato</option>
+    <option value="azienda">Azienda</option>
+  </select>
+
+  <!-- Dati per Privato -->
+  <div id="form-privato" style="display:none;">
+    <label for="nome">Nome:</label>
+    <input type="text" id="nome" name="nome"><br>
+
+    <label for="cognome">Cognome:</label>
+    <input type="text" id="cognome" name="cognome"><br>
+
+    <label for="data-nascita">Data di Nascita:</label>
+    <input type="date" id="data-nascita" name="data-nascita"><br>
+
+    <label for="codice-fiscale">Codice Fiscale:</label>
+    <input type="text" id="codice-fiscale" name="codice-fiscale"><br>
+
+    <label for="indirizzo">Indirizzo:</label>
+    <input type="text" id="indirizzo" name="indirizzo"><br>
+
+    <label for="telefono">Numero di Telefono:</label>
+    <input type="tel" id="telefono" name="telefono"><br>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email"><br>
+  </div>
+
+  <!-- Dati per Azienda -->
+  <div id="form-azienda" style="display:none;">
+    <label for="ragione-sociale">Ragione Sociale:</label>
+    <input type="text" id="ragione-sociale" name="ragione-sociale"><br>
+
+    <label for="partita-iva">Partita IVA:</label>
+    <input type="text" id="partita-iva" name="partita-iva"><br>
+
+    <label for="indirizzo-azienda">Indirizzo Aziendale:</label>
+    <input type="text" id="indirizzo-azienda" name="indirizzo-azienda"><br>
+
+    <label for="telefono-azienda">Numero di Telefono Aziendale:</label>
+    <input type="tel" id="telefono-azienda" name="telefono-azienda"><br>
+
+    <label for="email-azienda">Email Aziendale:</label>
+    <input type="email" id="email-azienda" name="email-azienda"><br>
+
+    <label for="nome-referente">Nome Referente:</label>
+    <input type="text" id="nome-referente" name="nome-referente"><br>
+
+    <label for="cognome-referente">Cognome Referente:</label>
+    <input type="text" id="cognome-referente" name="cognome-referente"><br>
+  </div>
+
+  <input type="submit" value="Invia">
+</form>
+
+<script>
+  function toggleFormFields() {
+    const tipoCliente = document.getElementById('tipo-cliente').value;
+    const formPrivato = document.getElementById('form-privato');
+    const formAzienda = document.getElementById('form-azienda');
+    
+    if (tipoCliente === 'privato') {
+      formPrivato.style.display = 'block';
+      formAzienda.style.display = 'none';
+    } else if (tipoCliente === 'azienda') {
+      formPrivato.style.display = 'none';
+      formAzienda.style.display = 'block';
+    } else {
+      formPrivato.style.display = 'none';
+      formAzienda.style.display = 'none';
+    }
+  }
+</script>
