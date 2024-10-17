@@ -201,15 +201,15 @@
         telefonoAzienda: document.getElementById('telefono-azienda').value
       };
     }
-
-    // Invia i dati al server backend tramite Fetch API
-    fetch('http://134.122.55.157:3000/invia-dati', { // Modifica l'URL se necessario
-      method: 'POST',
-      headers: {
+fetch('https://134.122.55.157/invia-dati', {  // Cambia http a https
+    method: 'POST',
+    headers: {
         'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(dati),
-    })
+    },
+    body: JSON.stringify(dati),
+})
+
+ 
     .then(response => response.json())
     .then(data => {
       console.log('Success:', data);
