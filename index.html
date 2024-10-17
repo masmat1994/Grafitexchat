@@ -62,7 +62,7 @@
             cognomePrivato: document.getElementById('cognome-privato').value,
             emailPrivato: document.getElementById('email-privato').value
         };
-        fetch('https://134.122.55.157/invia-dati', { // Modifica l'URL con il tuo endpoint
+        fetch('https://localhost:3000/invia-dati', { // Modifica l'URL con il tuo endpoint
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
