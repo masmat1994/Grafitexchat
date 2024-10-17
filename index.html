@@ -170,10 +170,55 @@
     }
   }
 
-  // Simulazione del processo di invio dati al backend
+  // Funzione per inviare i dati al backend
   document.getElementById('form-dati-anagrafici').addEventListener('submit', function(event) {
     event.preventDefault();
-    alert('Dati inviati correttamente! (Simulazione)');
+
+    const tipoCliente = document.getElementById('tipo-cliente').value;
+    let dati = {};
+
+    if (tipoCliente === 'privato') {
+      dati = {
+        tipoCliente: tipoCliente,
+        nomePrivato: document.getElementById('nome-privato').value,
+        cognomePrivato: document.getElementById('cognome-privato').value,
+        cittaPrivato: document.getElementById('citta-privato').value,
+        telefonoPrivato: document.getElementById('telefono-privato').value,
+        emailPrivato: document.getElementById('email-privato').value
+      };
+    } else if (tipoCliente === 'azienda') {
+      dati = {
+        tipoCliente: tipoCliente,
+        ragioneSociale: document.getElementById('ragione-sociale').value,
+        partitaIVA: document.getElementById('partita-iva').value,
+        codiceUnivoco: document.getElementById('codice-univoco').value,
+        emailFatture: document.getElementById('email-fatture').value,
+        emailReferente: document.getElementById('email-referente').value,
+        referenteProgetto: document.getElementById('referente-progetto').value,
+        indirizzoAzienda: document.getElementById('indirizzo-azienda').value,
+        capAzienda: document.getElementById('cap-azienda').value,
+        cittaAzienda: document.getElementById('citta-azienda').value,
+        telefonoAzienda: document.getElementById('telefono-azienda').value
+      };
+    }
+
+    // Invia i dati al server backend tramite Fetch API
+    fetch('http://localhost:3000/invia-dati', { // Modifica l'URL se necessario
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(dati),
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Success:', data);
+      alert('Dati inviati correttamente!');
+    })
+    .catch((error) => {
+      console.error('Errore durante l\'invio dei dati:', error);
+      alert('Errore durante l\'invio dei dati.');
+    });
   });
 </script>
 
