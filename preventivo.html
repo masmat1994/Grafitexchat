@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grafitex - Richiesta Preventivo</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+      max-width: 600px;
+      width: 100%;
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+
+    label {
+      font-weight: bold;
+      margin-top: 10px;
+      color: #333;
+      display: block;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    input[type="submit"] {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 15px;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #0056b3;
+    }
+
+    .table-container {
+      margin-top: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+
+    table, th, td {
+      border: 1px solid #ccc;
+    }
+
+    th, td {
+      padding: 10px;
+      text-align: center;
+    }
+
+    .add-button {
+      margin-top: 10px;
+      padding: 10px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    .add-button:hover {
+      background-color: #218838;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Richiesta Preventivo</h2>
+
+  <form id="form-preventivo">
+    <label for="nome">Nome:</label>
+    <input type="text" id="nome" name="nome" placeholder="Inserisci il tuo nome" required>
+
+    <label for="cognome">Cognome:</label>
+    <input type="text" id="cognome" name="cognome" placeholder="Inserisci il tuo cognome" required>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" placeholder="Inserisci la tua email" required>
+
+    <label for="telefono">Numero di Telefono:</label>
+    <input type="tel" id="telefono" name="telefono" placeholder="Inserisci il tuo numero di telefono" required>
+
+    <label for="tipologia">Tipologia di Abbigliamento:</label>
+    <select id="tipologia" name="tipologia" required>
+      <option value="">-- Seleziona --</option>
+      <option value="felpa">Felpa</option>
+      <option value="t-shirt">T-shirt</option>
+      <option value="polo">Polo</option>
+      <!-- Puoi aggiungere altre opzioni qui -->
+    </select>
+
+    <label for="colore">Colore:</label>
+    <select id="colore" name="colore" required>
+      <option value="">-- Seleziona --</option>
+      <option value="nero">Nero</option>
+      <option value="bianco">Bianco</option>
+      <option value="blu">Blu</option>
+      <!-- Puoi aggiungere altri colori qui -->
+    </select>
+
+    <label for="taglia">Taglia:</label>
+    <input type="text" id="taglia" name="taglia" placeholder="Inserisci la taglia">
+
+    <label for="quantita">Quantità:</label>
+    <input type="number" id="quantita" name="quantita" placeholder="Inserisci la quantità">
+
+    <button type="button" class="add-button" onclick="aggiungiProdotto()">Aggiungi Prodotto</button>
+
+    <!-- Tabella per visualizzare i prodotti -->
+    <div class="table-container">
+      <table id="prodotti-table">
+        <thead>
+          <tr>
+            <th>Tipologia</th>
+            <th>Colore</th>
+            <th>Taglia</th>
+            <th>Quantità</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Righe verranno aggiunte dinamicamente -->
+        </tbody>
+      </table>
+    </div>
+
+    <input type="submit" value="Invia Richiesta">
+  </form>
+</div>
+
+<script>
+  // Funzione per aggiungere i prodotti alla tabella
+  function aggiungiProdotto() {
+    const tipologia = document.getElementById('tipologia').value;
+    const colore = document.getElementById('colore').value;
+    const taglia = document.getElementById('taglia').value;
+    const quantita = document.getElementById('quantita').value;
+
+    if (tipologia && colore && taglia && quantita) {
+      const table = document.getElementById('prodotti-table').getElementsByTagName('tbody')[0];
+      const newRow = table.insertRow();
+
+      newRow.innerHTML = `
+        <td>${tipologia}</td>
+        <td>${colore}</td>
+        <td>${taglia}</td>
+        <td>${quantita}</td>
+      `;
+
+      // Pulisci i campi dopo l'aggiunta
+      document.getElementById('taglia').value = '';
+      document.getElementById('quantita').value = '';
+    } else {
+      alert("Per favore, compila tutti i campi per aggiungere un prodotto.");
+    }
+  }
+
+  // Funzione per inviare i dati al backend
+  document.getElementById('form-preventivo').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const nome = document.getElementById('nome').value;
+    const cognome = document.getElementById('cognome').value;
+    const email = document.getElementById('email').value;
+    const telefono = document.getElementById('telefono').value;
+
+    const table = document.getElementById('prodotti-table').getElementsByTagName('tbody')[0];
+    const righe = table.getElementsByTagName('tr');
+    
+    let prodotti = [];
+
+    for (let i = 0; i < righe.length; i++) {
+      const celle = righe[i].getElementsByTagName('td');
+      prodotti.push({
+        tipologia: celle[0].innerText,
+        colore: celle[1].innerText,
+        taglia: celle[2].innerText,
+        quantita: celle[3].innerText
+      });
+    }
+
+    if (prodotti.length === 0) {
+      alert("Devi aggiungere almeno un prodotto.");
+      return;
+    }
+
+    const richiestaPreventivo = {
+      nome: nome,
+      cognome: cognome,
+      email: email,
+      telefono: telefono,
+      prodotti: prodotti
+    };
+
+    // Invia i dati al server backend tramite Fetch API
+    fetch('https://api.gestionalegrafitex.it/invia-preventivo', { // Modifica l'URL per inviare al backend
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(richiestaPreventivo),
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Success:', data);
+      alert('Richiesta preventivo inviata con successo!');
+      // Reindirizza o mostra una pagina di successo
+      window.location.href = 'success.html';
+    })
+    .catch((error) => {
+      console.error('Errore durante l\'invio della richiesta di preventivo:', error);
+      alert('Errore durante l\'invio della richiesta.');
+    });
+  });
+</script>
+
+</body>
+</html>
