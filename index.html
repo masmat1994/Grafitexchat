@@ -203,23 +203,24 @@
     }
 
     // Invia i dati al server backend tramite Fetch API
-    fetch('https://api.grafitexsrl.it/invia-dati', { // Modifica l'URL con il sottodominio
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(dati),
-    })
-    .then(response => response.json())
-    .then(data => {
-      console.log('Success:', data);
-      alert('Dati inviati correttamente!');
-    })
-    .catch((error) => {
-      console.error('Errore durante l\'invio dei dati:', error);
-      alert('Errore durante l\'invio dei dati.');
-    });
-  });
+// Invia i dati al server backend tramite Fetch API
+fetch('https://159.223.6.221/invia-dati', { // Modifica l'URL con l'IP del droplet se HTTPS è configurato
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify(dati),
+})
+.then(response => response.json())
+.then(data => {
+  console.log('Success:', data);
+  alert('Dati inviati correttamente!');
+})
+.catch((error) => {
+  console.error('Errore durante l\'invio dei dati:', error);
+  alert('Errore durante l\'invio dei dati.');
+});
+
 </script>
 
 </body>
