@@ -1,3 +1,176 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grafitex - Raccolta Dati</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+      max-width: 500px;
+      width: 100%;
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+
+    h3 {
+      text-align: center;
+      color: #555;
+      margin-top: -10px;
+      font-weight: normal;
+    }
+
+    label {
+      font-weight: bold;
+      margin-top: 10px;
+      color: #333;
+      display: block;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    input[type="submit"] {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 15px;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #0056b3;
+    }
+
+    .form-section {
+      display: none;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 15px;
+      }
+
+      input, select {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Grafitex</h2>
+  <h3>Raccolta dati per richieste preventivo e inserimento in gestionale interno</h3>
+
+  <form id="form-dati-anagrafici">
+    <label for="tipo-cliente">Tipo del Cliente:</label>
+    <select id="tipo-cliente" name="tipo-cliente" onchange="toggleFormFields()">
+      <option value="">-- Seleziona --</option>
+      <option value="privato">Privato</option>
+      <option value="azienda">Azienda</option>
+    </select>
+
+    <!-- Sezione Privato -->
+    <div id="form-privato" class="form-section">
+      <label for="nome-privato">Nome:</label>
+      <input type="text" id="nome-privato" name="nome-privato" placeholder="Inserisci il nome">
+
+      <label for="cognome-privato">Cognome:</label>
+      <input type="text" id="cognome-privato" name="cognome-privato" placeholder="Inserisci il cognome">
+
+      <label for="citta-privato">Città:</label>
+      <input type="text" id="citta-privato" name="citta-privato" placeholder="Inserisci la città">
+
+      <label for="telefono-privato">Numero di Telefono:</label>
+      <input type="tel" id="telefono-privato" name="telefono-privato" placeholder="Inserisci il numero di telefono">
+
+      <label for="email-privato">Email:</label>
+      <input type="email" id="email-privato" name="email-privato" placeholder="Inserisci l'email">
+    </div>
+
+    <!-- Sezione Azienda -->
+    <div id="form-azienda" class="form-section">
+      <label for="ragione-sociale">Ragione Sociale:</label>
+      <input type="text" id="ragione-sociale" name="ragione-sociale" placeholder="Inserisci la ragione sociale">
+
+      <label for="partita-iva">Partita IVA:</label>
+      <input type="text" id="partita-iva" name="partita-iva" placeholder="Inserisci la partita IVA">
+
+      <label for="codice-univoco">Codice Univoco:</label>
+      <input type="text" id="codice-univoco" name="codice-univoco" placeholder="Inserisci il codice univoco">
+
+      <label for="email-fatture">Email per le Fatture:</label>
+      <input type="email" id="email-fatture" name="email-fatture" placeholder="Inserisci l'email per le fatture">
+
+      <label for="email-referente">Email Referente:</label>
+      <input type="email" id="email-referente" name="email-referente" placeholder="Inserisci l'email del referente">
+
+      <label for="referente-progetto">Referente Progetto:</label>
+      <input type="text" id="referente-progetto" name="referente-progetto" placeholder="Inserisci il nome del referente progetto">
+
+      <label for="indirizzo-azienda">Indirizzo Azienda:</label>
+      <input type="text" id="indirizzo-azienda" name="indirizzo-azienda" placeholder="Inserisci l'indirizzo aziendale">
+
+      <label for="cap-azienda">CAP:</label>
+      <input type="text" id="cap-azienda" name="cap-azienda" placeholder="Inserisci il CAP">
+
+      <label for="citta-azienda">Città:</label>
+      <input type="text" id="citta-azienda" name="citta-azienda" placeholder="Inserisci la città">
+
+      <label for="telefono-azienda">Numero di Telefono:</label>
+      <input type="tel" id="telefono-azienda" name="telefono-azienda" placeholder="Inserisci il numero di telefono aziendale">
+    </div>
+
+    <input type="submit" value="Invia">
+  </form>
+</div>
+
+<script>
+  // Funzione per mostrare/nascondere i campi in base alla selezione
+  function toggleFormFields() {
+    const tipoCliente = document.getElementById('tipo-cliente').value;
+    const formPrivato = document.getElementById('form-privato');
+    const formAzienda = document.getElementById('form-azienda');
+
+    if (tipoCliente === 'privato') {
+      formPrivato.style.display = 'block';
+      formAzienda.style.display = 'none';
+    } else if (tipoCliente === 'azienda') {
+      formPrivato.style.display = 'none';
+      formAzienda.style.display = 'block';
+    } else {
+      formPrivato.style.display = 'none';
+      formAzienda.style.display = 'none';
+    }
+  }
+
 // Funzione per inviare i dati al backend
 document.getElementById('form-dati-anagrafici').addEventListener('submit', function(event) {
     event.preventDefault();
@@ -48,3 +221,8 @@ document.getElementById('form-dati-anagrafici').addEventListener('submit', funct
       alert('Errore durante l\'invio dei dati.');
     });
 });
+
+</script>
+
+</body>
+</html>
