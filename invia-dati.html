@@ -208,16 +208,17 @@
       },
       body: JSON.stringify(dati),
     })
-    .then(response => response.json())
-    .then(data => {
-      console.log('Success:', data);
-      alert('Dati inviati correttamente!');
-    })
-    .catch((error) => {
-      console.error('Errore durante l\'invio dei dati:', error);
-      alert('Errore durante l\'invio dei dati.');
-    });
+ .then(response => response.json())
+  .then(data => {
+    console.log('Success:', data);
+    // Reindirizza alla pagina di conferma
+    window.location.href = 'success.html';
+  })
+  .catch((error) => {
+    console.error('Errore durante l\'invio dei dati:', error);
+    alert('Errore durante l\'invio dei dati.');
   });
+});
 </script>
 
 </body>
