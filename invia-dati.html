@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Grafitex - Inserimento Dati Cliente</title>
+  <title>Grafitex - Raccolta Dati</title>
   <style>
     body {
       font-family: 'Arial', sans-serif;
@@ -27,6 +27,13 @@
     h2 {
       text-align: center;
       color: #333;
+    }
+
+    h3 {
+      text-align: center;
+      color: #555;
+      margin-top: -10px;
+      font-weight: normal;
     }
 
     label {
@@ -61,6 +68,10 @@
       background-color: #0056b3;
     }
 
+    .form-section {
+      display: none;
+    }
+
     @media (max-width: 600px) {
       .container {
         padding: 15px;
@@ -75,30 +86,51 @@
 <body>
 
 <div class="container">
-  <h2>Grafitex - Inserimento Dati Cliente</h2>
+  <h2>Grafitex</h2>
+  <h3>Raccolta dati per richieste preventivo e inserimento in gestionale interno</h3>
 
   <form id="form-dati-anagrafici">
     <label for="tipo-cliente">Tipo di Cliente:</label>
-    <select id="tipo-cliente" name="tipo-cliente" required>
+    <select id="tipo-cliente" name="tipo-cliente" onchange="toggleFormFields()" required>
       <option value="">-- Seleziona --</option>
       <option value="privato">Privato</option>
       <option value="azienda">Azienda</option>
     </select>
 
-    <div id="form-privato">
-      <label for="nome">Nome:</label>
-      <input type="text" id="nome" name="nome" placeholder="Inserisci il nome" required>
+    <!-- Sezione Privato -->
+    <div id="form-privato" class="form-section">
+      <label for="nome-privato">Nome:</label>
+      <input type="text" id="nome-privato" name="nome-privato" placeholder="Inserisci il nome" required>
 
-      <label for="cognome">Cognome:</label>
-      <input type="text" id="cognome" name="cognome" placeholder="Inserisci il cognome" required>
+      <label for="cognome-privato">Cognome:</label>
+      <input type="text" id="cognome-privato" name="cognome-privato" placeholder="Inserisci il cognome" required>
+
+      <label for="citta-privato">Città:</label>
+      <input type="text" id="citta-privato" name="citta-privato" placeholder="Inserisci la città" required>
+
+      <label for="telefono-privato">Numero di Telefono:</label>
+      <input type="tel" id="telefono-privato" name="telefono-privato" placeholder="Inserisci il numero di telefono" required>
+
+      <label for="email-privato">Email:</label>
+      <input type="email" id="email-privato" name="email-privato" placeholder="Inserisci l'email" required>
     </div>
 
-    <div id="form-azienda" style="display: none;">
+    <!-- Sezione Azienda -->
+    <div id="form-azienda" class="form-section">
       <label for="ragione-sociale">Ragione Sociale:</label>
-      <input type="text" id="ragione-sociale" name="ragione-sociale" placeholder="Inserisci la ragione sociale">
+      <input type="text" id="ragione-sociale" name="ragione-sociale" placeholder="Inserisci la ragione sociale" required>
 
       <label for="partita-iva">Partita IVA:</label>
-      <input type="text" id="partita-iva" name="partita-iva" placeholder="Inserisci la partita IVA">
+      <input type="text" id="partita-iva" name="partita-iva" placeholder="Inserisci la partita IVA" required>
+
+      <label for="codice-univoco">Codice Univoco:</label>
+      <input type="text" id="codice-univoco" name="codice-univoco" placeholder="Inserisci il codice univoco" required>
+
+      <label for="email-fatture">Email per le Fatture:</label>
+      <input type="email" id="email-fatture" name="email-fatture" placeholder="Inserisci l'email per le fatture" required>
+
+      <label for="email-referente">Email Referente:</label>
+      <input type="email" id="email-referente" name="email-referente" placeholder="Inserisci l'email del referente" required>
     </div>
 
     <input type="submit" value="Invia">
@@ -106,70 +138,70 @@
 </div>
 
 <script>
-  // Mostra campi azienda o privato in base alla selezione
-  document.getElementById('tipo-cliente').addEventListener('change', function() {
-    const tipoCliente = this.value;
+  function toggleFormFields() {
+    const tipoCliente = document.getElementById('tipo-cliente').value;
     const formPrivato = document.getElementById('form-privato');
     const formAzienda = document.getElementById('form-azienda');
 
-    if (tipoCliente === 'azienda') {
-      formPrivato.style.display = 'none';
-      formAzienda.style.display = 'block';
-    } else {
+    if (tipoCliente === 'privato') {
       formPrivato.style.display = 'block';
       formAzienda.style.display = 'none';
-    }
-  });
-
-  // Funzione per generare il codice cliente
-  function generaCodiceCliente(nome, cognome, partitaIVA) {
-    let codiceCliente = "";
-
-    if (!partitaIVA) {
-      // Privato: prime 3 lettere del nome e cognome + 4 cifre casuali
-      codiceCliente = nome.substring(0, 3).toUpperCase() + cognome.substring(0, 3).toUpperCase() + Math.floor(1000 + Math.random() * 9000);
+      setRequiredFields(true, false);  // Attiva i campi obbligatori per privati
+    } else if (tipoCliente === 'azienda') {
+      formPrivato.style.display = 'none';
+      formAzienda.style.display = 'block';
+      setRequiredFields(false, true);  // Attiva i campi obbligatori per aziende
     } else {
-      // Azienda: prime 3 lettere della ragione sociale + ultime 4 cifre della partita IVA
-      codiceCliente = nome.substring(0, 3).toUpperCase() + partitaIVA.slice(-4);
+      formPrivato.style.display = 'none';
+      formAzienda.style.display = 'none';
+      setRequiredFields(false, false); // Disattiva tutti i campi
     }
-
-    return codiceCliente;
   }
 
-  // Funzione per inviare i dati
+  // Funzione per attivare i campi obbligatori in base al tipo di cliente
+  function setRequiredFields(privato, azienda) {
+    document.getElementById('nome-privato').required = privato;
+    document.getElementById('cognome-privato').required = privato;
+    document.getElementById('citta-privato').required = privato;
+    document.getElementById('telefono-privato').required = privato;
+    document.getElementById('email-privato').required = privato;
+
+    document.getElementById('ragione-sociale').required = azienda;
+    document.getElementById('partita-iva').required = azienda;
+    document.getElementById('codice-univoco').required = azienda;
+    document.getElementById('email-fatture').required = azienda;
+    document.getElementById('email-referente').required = azienda;
+  }
+
+  // Funzione per inviare i dati al backend
   document.getElementById('form-dati-anagrafici').addEventListener('submit', function(event) {
     event.preventDefault();
 
     const tipoCliente = document.getElementById('tipo-cliente').value;
     let dati = {};
-    let codiceCliente = "";
 
     if (tipoCliente === 'privato') {
-      const nome = document.getElementById('nome').value;
-      const cognome = document.getElementById('cognome').value;
-      codiceCliente = generaCodiceCliente(nome, cognome, null);
-
       dati = {
         tipoCliente: tipoCliente,
-        nome: nome,
-        cognome: cognome,
-        codiceCliente: codiceCliente
+        nomePrivato: document.getElementById('nome-privato').value,
+        cognomePrivato: document.getElementById('cognome-privato').value,
+        cittaPrivato: document.getElementById('citta-privato').value,
+        telefonoPrivato: document.getElementById('telefono-privato').value,
+        emailPrivato: document.getElementById('email-privato').value
       };
     } else if (tipoCliente === 'azienda') {
-      const ragioneSociale = document.getElementById('ragione-sociale').value;
-      const partitaIVA = document.getElementById('partita-iva').value;
-      codiceCliente = generaCodiceCliente(ragioneSociale, null, partitaIVA);
-
       dati = {
         tipoCliente: tipoCliente,
-        ragioneSociale: ragioneSociale,
-        partitaIVA: partitaIVA,
-        codiceCliente: codiceCliente
+        ragioneSociale: document.getElementById('ragione-sociale').value,
+        partitaIVA: document.getElementById('partita-iva').value,
+        codiceUnivoco: document.getElementById('codice-univoco').value,
+        emailFatture: document.getElementById('email-fatture').value,
+        emailReferente: document.getElementById('email-referente').value
       };
     }
 
     // Invia i dati al server backend tramite Fetch API
-    fetch('https://api.gestionalegrafitex.it/invia-dati', {
+    fetch('https://api.gestionalegrafitex.it/invia-dati', { // Modifica l'URL con l'IP del droplet
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -178,17 +210,15 @@
     })
     .then(response => response.json())
     .then(data => {
-      if (data.success) {
-        window.location.href = 'success.html?codice=' + codiceCliente;
-      } else {
-        alert('Errore durante l\'invio dei dati.');
-      }
+      console.log('Success:', data);
+      // Reindirizza alla pagina di conferma
+      window.location.href = 'success.html?codice=' + data.codiceCliente;  // Aggiunto codice cliente
     })
     .catch((error) => {
       console.error('Errore durante l\'invio dei dati:', error);
-      alert('Errore durante l\'invio dei dati.');
-    });
+    alert('Errore durante l\'invio dei dati.');
   });
+});
 </script>
 
 </body>
