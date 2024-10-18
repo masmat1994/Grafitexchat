@@ -3,60 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Grazie per aver inviato i tuoi dati</title>
-  <style>
-    body {
-      font-family: 'Arial', sans-serif;
-      background-color: #f4f4f4;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      margin: 0;
-    }
-
-    .container {
-      background-color: white;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-      max-width: 500px;
-      width: 100%;
-      text-align: center;
-    }
-
-    h2 {
-      color: #333;
-    }
-
-    p {
-      font-size: 18px;
-      color: #555;
-    }
-  </style>
+  <title>Grazie per aver inviato i tuoi dati!</title>
 </head>
 <body>
-
-<div class="container">
+  <h1>Grazie per aver inviato i tuoi dati!</h1>
+  <p>Il tuo codice cliente è: <span id="codice-cliente"></span></p>
   
-    <h1>Grazie per aver inviato i dati!</h1>
-    <p>I tuoi dati sono stati ricevuti con successo. Il tuo codice cliente è: <span id="codice-cliente"></span></p>
-    <div class="smile">😊</div>
-    <a href="index.html">Torna alla pagina iniziale</a>
-   <h2>Grazie per aver inviato i tuoi dati!</h2>
+  <script>
+    // Estrai il parametro "codice" dalla query string
+    const urlParams = new URLSearchParams(window.location.search);
+    const codiceCliente = urlParams.get('codice');
 
-</div>
-
-<script>
-  // Recupera il codice cliente dall'URL
-  const params = new URLSearchParams(window.location.search);
-  const codiceCliente = params.get('codice');
-
-  // Mostra il codice cliente nella pagina
-  document.getElementById('codice-cliente').textContent = codiceCliente;
-</script>
-
+    // Mostra il codice cliente nella pagina
+    document.getElementById('codice-cliente').textContent = codiceCliente;
+  </script>
 </body>
 </html>
-
- 
