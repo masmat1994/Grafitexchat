@@ -120,6 +120,21 @@
       <label for="ragione-sociale">Ragione Sociale:</label>
       <input type="text" id="ragione-sociale" name="ragione-sociale" placeholder="Inserisci la ragione sociale" required>
 
+      <label for="indirizzo-azienda">Indirizzo Aziendale:</label>
+      <input type="text" id="indirizzo-azienda" name="indirizzo-azienda" placeholder="Inserisci l' indirizzo" required>
+
+      <label for="cap-azienda">Cap</label>
+      <input type="text" id="cap-azienda" name="cap-azienda" placeholder="Cap" required>
+
+       <label for="citta-azienda">Città</label>
+      <input type="text" id="citta-azienda" name="citta-azienda" placeholder="Città" required>
+
+      <label for="telefono-azienda">Telefono</label>
+      <input type="text" id="telefono-azienda" name="telefono-azienda" placeholder="Telefono Aziendale" required>
+
+       <label for="referente-azienda">Referente per i progetti</label>
+      <input type="text" id="referente-azienda" name="referente-azienda" placeholder="Inserisci il referente per i progetti" required>
+      
       <label for="partita-iva">Partita IVA:</label>
       <input type="text" id="partita-iva" name="partita-iva" placeholder="Inserisci la partita IVA" required>
 
@@ -167,6 +182,11 @@
     document.getElementById('email-privato').required = privato;
 
     document.getElementById('ragione-sociale').required = azienda;
+    document.getElementById('indirizzo-azienda').required = azienda;
+    document.getElementById('cap-azienda').required = azienda;
+    document.getElementById('citta-azienda').required = azienda;
+    document.getElementById('telefono-azienda').required = azienda;
+    document.getElementById('referente-azienda').required = azienda;
     document.getElementById('partita-iva').required = azienda;
     document.getElementById('codice-univoco').required = azienda;
     document.getElementById('email-fatture').required = azienda;
@@ -193,6 +213,11 @@
       dati = {
         tipoCliente: tipoCliente,
         ragioneSociale: document.getElementById('ragione-sociale').value,
+        indirizzo: document.getElementById('indirizzo-azienda').value,
+        cap: document.getElementById('cap-azienda').value,
+        citta: document.getElementById('citta-azienda').value,
+        telefono: document.getElementById('telefono-azienda').value,
+        referente: document.getElementById('referente-azienda').value,
         partitaIVA: document.getElementById('partita-iva').value,
         codiceUnivoco: document.getElementById('codice-univoco').value,
         emailFatture: document.getElementById('email-fatture').value,
