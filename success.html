@@ -4,11 +4,78 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Grazie per aver inviato i tuoi dati!</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background-color: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 28px;
+      color: #007bff;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 18px;
+      color: #555;
+      margin-top: 10px;
+    }
+
+    #codice-cliente {
+      font-size: 24px;
+      color: #333;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+
+    .smile {
+      font-size: 48px;
+      color: #28a745;
+      margin-top: 20px;
+    }
+
+    a.button {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 12px 25px;
+      font-size: 16px;
+      color: white;
+      background-color: #007bff;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+
+    a.button:hover {
+      background-color: #0056b3;
+    }
+  </style>
 </head>
 <body>
-  <h1>Grazie per aver inviato i tuoi dati!</h1>
-  <p>Il tuo codice cliente è: <span id="codice-cliente"></span></p>
-  
+
+  <div class="container">
+    <h1>Grazie per aver inviato i tuoi dati!</h1>
+    <p>Il tuo codice cliente è: <span id="codice-cliente"></span></p>
+    <div class="smile">😊</div>
+    <a href="/" class="button">Torna alla Home</a>
+  </div>
+
   <script>
     // Estrai il parametro "codice" dalla query string
     const urlParams = new URLSearchParams(window.location.search);
@@ -17,5 +84,6 @@
     // Mostra il codice cliente nella pagina
     document.getElementById('codice-cliente').textContent = codiceCliente;
   </script>
+
 </body>
 </html>
